@@ -6,6 +6,7 @@ public class ProgramaPrimo {
 		// TODO Apéndice de método generado automáticamente
 		Primo nuevo = new Primo(10);
 		nuevo.print();
+		
 	}
 
 }

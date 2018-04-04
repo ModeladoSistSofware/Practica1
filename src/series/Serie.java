@@ -12,12 +12,16 @@ public abstract class Serie {
 	ArrayList<Integer> datos ;
     int limiteSuper;
 
-    /**
-     * Método que tenar que imprementar todo las 
-     * clases series para gnerar la serie
-     * según que serie sea la autogenerara.
-     */
-    protected abstract void generarSerie();
+	   /**
+  * Método que tenar que imprementar todo las 
+  * clases series para gnerar la serie
+  * según que serie sea la autogenerara.
+  */
+	protected void generarSerie() {
+		while(this.datos.size() < this.limiteSuper) {
+			this.datos.add(next());
+		}
+	}
     /**
      * Método que que cogera el siguitne.
      */
@@ -31,6 +35,7 @@ public abstract class Serie {
     Serie(int limiteSuper){
     	datos = new ArrayList<Integer>();
     	this.limiteSuper = limiteSuper;
+    	this.generarSerie();
     }
     /**
      * Método que determina si el numoe que se le pasa por parmatro 

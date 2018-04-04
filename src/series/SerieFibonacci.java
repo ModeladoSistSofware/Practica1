@@ -10,28 +10,38 @@ package series;
 public class SerieFibonacci extends Serie {
 
 	SerieFibonacci(int limiteSuper) {
-		super(limiteSuper);
-		generarSerie();
-		
+		super(limiteSuper);	
+	}
+
+    public static boolean isFibonacci(int numero) {
+    	int cont = 0;
+    	int fibo1=1; 
+    	int fibo2=1; 
+    	
+    	while(cont < numero) {
+    		if(numero == fibo2) {
+    			return true;
+    		}
+    		cont++;
+    		fibo2 = fibo1 + fibo2;
+    		fibo1 = fibo2 - fibo1;
+    	}
+    	return false;
+    }
+    
+	@Override
+	public int next() {
+		int aux1 = 0;
+		int aux2 = 0;
+		if (this.datos.size() > 1 ) {
+			aux1 = this.datos.get(this.datos.size() - 1);
+			aux2 = this.datos.get(this.datos.size() - 2);
+		}else if(this.datos.size() == 1) {
+	    	aux1 = 0;
+			aux2 = 1;
+		}
+	    return aux1+aux2;
 	}
 	
-	/**
-	 * Se reescribe el método siguente para gener la serie.
-	 * La version iterativa de fibonacci.
-	 */
-	@Override
-	protected void generarSerie() {  	    
-	    
-		int n1=0,n2=1,n3;  
-		this.intorduce(n1);
-		this.intorduce(n2);
-		for(int i=2;i <=  this.getLimiteSuper();++i)
-		{  
-		      n3 = n1 + n2;    
-			  this.intorduce(n3);
-			  n1 = n2;    
-			  n2 = n3;    
-		} 
-	 }
 
 }
