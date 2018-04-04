@@ -3,6 +3,8 @@ package matrix;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.Arrays;
 
 import vector.Vector;
@@ -26,6 +28,14 @@ public class Matrix{
 		matrix[0]= new Vector(1);	
 	}
 	/**
+	 * Constructor que lee desde el fichero k el pasamos.
+	 * @param nameFile
+	 **/
+	public Matrix(String nameFile){
+		super();
+		read(nameFile);
+	}
+	/**
 	 * Constructor que se le pasan las dimenciones para poderlo inicializar.
 	 * @param nDimensiones
 	 * @param mDimensiones
@@ -34,6 +44,28 @@ public class Matrix{
 		matrix = new Vector[mDimensiones];
 		for(int i = 0 ; i < mDimensiones; i++) {
 			matrix[i] = new Vector(nDimensiones);
+		}
+	}
+	/**
+	 * Constructor que se le pasan las dimenciones para poderlo inicializar.
+	 * @param nDimensiones
+	 * @param mDimensiones
+	 */
+	public void resize(int mDimensiones, int nDimensiones) {
+		matrix = new Vector[mDimensiones];
+		for(int i = 0 ; i < mDimensiones; i++) {
+			matrix[i] = new Vector(nDimensiones);
+		}
+	}
+	/**
+	 * Constructor que se le pasan las dimenciones para poderlo inicializar.
+	 * @param nDimensiones
+	 * @param mDimensiones
+	 */
+	public void resizeFila(int mDimensiones) {
+		matrix = new Vector[mDimensiones];
+		for(int i = 0 ; i < mDimensiones; i++) {
+		 	matrix[i] = new Vector();
 		}
 	}
 	/**
@@ -165,8 +197,13 @@ public class Matrix{
 			// Lectura del fichero
 			String linea;
 			int cont = 0;
-			! y segunda lines es tal
-			while ((linea = br.readLine()) != null) {
+	    	
+			while ((linea = br.readLine()) != null) {	
+				  if(cont == 0) {
+					  resizeFila( Integer.parseInt(linea));
+					  linea = br.readLine();
+					  linea = br.readLine();
+				  }
 				  matrix[cont++].add(linea);
 			}
 		} catch (Exception e) {
@@ -184,8 +221,31 @@ public class Matrix{
 			}
 		}
 	}
-	
-	
+	/**
+	 * Método que guarda los datos en el archivo que se le pasa
+	 * @param namFile
+	 */
+	public void write(String nameFile) {
+		FileWriter fichero = null;
+		PrintWriter pw = null;
+		try {
+			fichero = new FileWriter(nameFile);
+			pw = new PrintWriter(fichero);
+			
+			pw.print(toString());
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			try {
+				// Nuevamente aprovechamos el finally para
+				// asegurarnos que se cierra el fichero.
+				if (null != fichero)
+					fichero.close();
+			} catch (Exception e2) {
+				e2.printStackTrace();
+			}
+		}
+	}
 	/**
 	 * Método que muestar por pantalla la matriz.
 	 */
@@ -198,9 +258,11 @@ public class Matrix{
 	@Override
 	public String toString() {
 		String result = "";
-		for(int i = 0 ; i < this.getNumRow(); i++) {
-			result = result + matrix[i].toString() + "\n";
+		result = this.getNumRow() + "\n" + this.getNumCol() + "\n";
+		for(int i = 0 ; i < this.getNumRow()-1; i++) {
+			result = result + matrix[i].toStringSpacio() + "\n";
 		}
+		result = result + matrix[this.getNumRow() - 1 ].toStringSpacio();
 		return result;
 	}
 	

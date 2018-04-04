@@ -66,7 +66,21 @@ public class Vector implements Cloneable {
 		}
 		return result;
 	}
+	/**
+	 * Método analogo a tu strig pero el separador
+	 */
+	public String toStringSpacio() {
+		String result = "";
 
+		for (int i = 0; i < this.getnDimensiones(); i++) {
+			if (i < this.getnDimensiones() - 1) {
+				result = result + datos[i] + " ";
+			} else {
+				result = result + datos[i];
+			}
+		}
+		return result;
+	}
 	/**
 	 * Método que permita realizar el producto escalar entre dos vecotre
 	 * n-dimensionales.
@@ -213,7 +227,7 @@ public class Vector implements Cloneable {
 	}
 	
 	public void add(String linea) {
-		String aux[] = linea.split(",");
+		String aux[] = linea.split("[ ,]");
 		for (String val : aux) {
 			add(Double.parseDouble(val));
 		}

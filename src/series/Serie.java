@@ -18,6 +18,10 @@ public abstract class Serie {
      * según que serie sea la autogenerara.
      */
     protected abstract void generarSerie();
+    /**
+     * Método que que cogera el siguitne.
+     */
+    public abstract int next();
     
     /**
      * Contructor qeu se le pasa el limite superior
@@ -91,7 +95,6 @@ public abstract class Serie {
 	 * @param n2
 	 */
 	public void muestraSubIntervalor(int n1,int n2 ) {
-		
 		System.out.print( this.getElemento(n1) + "," );
 		for(int i = n1 + 1 ; i < n2; i++) {
 	    	System.out.print(  "," + this.getElemento(i) );
@@ -115,12 +118,20 @@ public abstract class Serie {
 	@Override
 	public String toString() {
 		String result =  "";
+		boolean bandera= true;
 		for(Integer aux : this.datos) {
-	    	result = result + "," + aux ;
+			if(bandera) {
+				result = result +  aux ;
+				bandera = false;
+			}else {
+				result = result + "," + aux ;
+			}
 	    }
 		return result;
 	}
-	
+	public void print() {
+		System.out.println(this.toString());
+	}
 	
 
 }

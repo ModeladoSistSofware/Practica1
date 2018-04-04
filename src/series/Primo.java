@@ -13,95 +13,52 @@ public class Primo extends Serie {
 
 	public Primo(int limiteSuper) {
 		super(limiteSuper);
-		generarSerie();
+		this.generarSerie();
 	}
-
-	@Override
+	   /**
+     * Método que tenar que imprementar todo las 
+     * clases series para gnerar la serie
+     * según que serie sea la autogenerara.
+     */
 	protected void generarSerie() {
 		
-		int n = this.getLimiteSuper();
-		int c = 1;
-		int dato = 2;
-		int d = 2;
-		while (c <= n) {
-		   if (dato % d == 0) {
-		      if (dato == d) {
-		    	  this.intorduce(dato);
-		         // System.out.print(dato + ", ");
-		         c++;
-		      }
-		      d = 2;
-		      dato++;
-		   }
-		   else
-		      d++;
+		while(this.datos.size() < this.limiteSuper) {
+			System.out.println(this.datos.size());
+			this.datos.add(next());
 		}
 	}
 	
-	//Test de primalidad de Lehman y Peralta: 
-	public static boolean isPrimo(int number) {
-			    return number > 1 && 
-		            IntStream.rangeClosed(2, (int) Math.sqrt(number))
-		                .noneMatch(i -> number % i == 0);
+	public static boolean isPrimo(int numero) {
+	   /* boolean result = true;    
+        int limeSup =(int) Math.sqrt((double)numero);// numeor hata proba
+        for(int i = 1;  i<= limeSup ; i++) {
+			if(( numero % i) == 0) {
+				 result = false;
+				 return result;
+			}
+		}
+        return result;*/
+		return true;
 	}
-	  public static void main(String args[])
-      {
-		  System.out.print(Primo.isPrimo(500));
-      }
-	    /**
-	     * Método que detecta si el número que se le pasa como parametro es primo.
-	     * Metodo uclides.
-	     * @param n
-	     * @return
-	     */
-		static public boolean isPrimo(int n){
-			int limeSup =(int) Math.sqrt((double)n);
-			
-			//return ==  ? false: true;
-		}
-		
-		/**
-		 * 
-		 * @param desde
-		 * @param hasta
-		 */
-		static public void print(int desde, int hasta){
-			ArrayList<Integer> setPrimos = todoLosPrimos(desde,hasta);
-			System.out.println("Primos de " + desde + " " + hasta );
-			
-			for(Integer num : setPrimos){	
-				System.out.println( num + " ");
-			}
-			
-		}
-		
-		/**
-		 * Método que devuelve una lista de primos comprendido entre dos números.
-		 * @param desde
-		 * @param hasta
-		 * @return
-		 */
-		static public ArrayList<Integer> todoLosPrimos(int desde, int hasta){
-			
-			ArrayList<Integer> listaPrimos = new ArrayList<Integer>();
-			for(int n = desde ; n <= hasta ; n++ ){
-				if(isPrimo(n)){
-					listaPrimos.add(n);
+	
+		@Override
+		public int next() {
+			    int aux = 0;
+			    if(this.datos.size() != 0) {
+				     aux  = this.datos.get(this.datos.size());
+			    }
+			   
+				aux++;
+				boolean encontrado = false;
+				while(!encontrado) {
+					
+					if(isPrimo(aux)) {
+						encontrado = false;
+					}else{
+						aux++;
+					}
 				}
-			}
-			return listaPrimos;
-		}
 				
-		/**
-		 * Método que sumas todo los elementos de un array de enteros.
-		 * @param numeros
-		 * @return
-		 */
-		static public int sumaElementos(ArrayList<Integer> numeros){
-			int sum = 0;	
-			for(Integer num : numeros){	
-				sum+=num;
-			}
-			return sum;
+				return aux;
 		}
 }
